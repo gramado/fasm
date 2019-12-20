@@ -13,7 +13,7 @@ VERSION = 0
 PATCHLEVEL = 0
 SUBLEVEL = 0
 EXTRAVERSION =
-#NAME = reboot
+#NAME = fasm for gramado
 
 #todo:
 #We need to simplify these flags
@@ -38,17 +38,13 @@ CFLAGS = -m32 \
 	
 
 
-#LIBC    = ../../lib/libc02/include/
-#LIBCOBJ = ../../lib/libc02/obj
-#API02   = ../../lib/api02/include/
-#APIOBJ  = ../../lib/api02/obj
 
 # A libc fica no projeto garden
-# /home/nora/garden/lib/libc03/
-LIBC    = ../../garden/lib/libc03/include/
-LIBCOBJ = ../../garden/lib/libc03/obj
-API02   = ../../garden/lib/api02/include/
-APIOBJ  = ../../garden/lib/api02/obj
+# /home/nora/atacama/lib/libc03/
+LIBC    = ../../atacama/lib/libc03/include/
+LIBCOBJ = ../../atacama/lib/libc03/obj
+API02   = ../../atacama/lib/api02/include/
+APIOBJ  = ../../atacama/lib/api02/obj
 
 
 
@@ -92,6 +88,8 @@ math.o \
 strtol.o \
 strtoul.o \
 fscanf.o \
+termios.o \
+ioctl.o \
 stubs.o    
 
 
@@ -127,6 +125,9 @@ all-c:
 	cp $(LIBCOBJ)/strtol.o  .
 	cp $(LIBCOBJ)/strtoul.o  .
 
+	cp $(LIBCOBJ)/termios.o  .
+	cp $(LIBCOBJ)/ioctl.o  .
+	
 	cp $(APIOBJ)/api.o      .
 
 
@@ -135,7 +136,7 @@ jackpot-link:
 	ld -m elf_i386 -T link.ld -o FASM.BIN $(myObjects) -Map map.s
 
 finalize:
-	cp FASM.BIN  ../../garden/bin 
+	cp FASM.BIN  ../../atacama/bin 
 
 clean:
 #	-rm *.o
