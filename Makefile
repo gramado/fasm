@@ -39,12 +39,11 @@ CFLAGS = -m32 \
 
 
 
-# A libc fica no projeto garden
-# /home/nora/atacama/lib/libc03/
-LIBC    = ../../atacama/lib/libc03/include/
-LIBCOBJ = ../../atacama/lib/libc03/obj
-API02   = ../../atacama/lib/api02/include/
-APIOBJ  = ../../atacama/lib/api02/obj
+
+LIBC    = ../../animal/lib/libc03/include/
+LIBCOBJ = ../../animal/lib/libc03/obj
+API02   = ../../animal/lib/libgui/include/
+APIOBJ  = ../../animal/lib/libgui/obj
 
 
 
@@ -90,6 +89,7 @@ strtoul.o \
 fscanf.o \
 termios.o \
 ioctl.o \
+fcntl.o \
 stubs.o    
 
 
@@ -127,6 +127,7 @@ all-c:
 
 	cp $(LIBCOBJ)/termios.o  .
 	cp $(LIBCOBJ)/ioctl.o  .
+	cp $(LIBCOBJ)/fcntl.o  .
 	
 	cp $(APIOBJ)/api.o      .
 
@@ -136,11 +137,15 @@ jackpot-link:
 	ld -m elf_i386 -T link.ld -o FASM.BIN $(myObjects) -Map map.s
 
 finalize:
-	cp FASM.BIN  ../../atacama/bin 
+#	cp FASM.BIN  ../../atacama/bin 
 
 clean:
+# #bugbug >>>>> WE CAN'T DELETE fasm.o !!!! 
 #	-rm *.o
+
 #	-rm FASM.BIN 
 
+clean2:
+	-rm FASM.BIN 
 
 

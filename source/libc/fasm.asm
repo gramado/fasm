@@ -32,24 +32,37 @@ extrn gettimeofday
 section '.text' executable align 16
 
 main:
-	mov	ecx,[esp+4]
-	mov	[argc],ecx
-	mov	ebx,[esp+8]
-	mov	[argv],ebx
-	push	ebp
-	mov	[stack_frame],esp
 
-	mov	[con_handle],1
-	mov	esi,_logo
-	call	display_string
+    mov ecx,[esp+4]
+    mov [argc],ecx
+    mov ebx,[esp+8]
+    mov [argv],ebx
+    push ebp
+    mov [stack_frame],esp
+    mov [con_handle],1
 
-	call	get_params
-	jc	information
+    ;;
+    ;; Initial Message.
+    ;;
+    
+    ;; version
+    mov esi,_logo
+    call  display_string
 
-	call	init_memory
 
-	mov	esi,_memory_prefix
-	call	display_string
+    mov esi,_step
+    call  display_string
+    call get_params
+    jc information
+
+
+    mov esi,_step
+    call  display_string
+    call  init_memory
+
+    mov esi,_memory_prefix
+    call display_string
+
 	mov	eax,[memory_end]
 	sub	eax,[memory_start]
 	add	eax,[additional_memory_end]
@@ -311,6 +324,9 @@ include 'system.inc'
 include '..\version.inc'
 
 _copyright db 'Copyright (c) 1999-2019, Tomasz Grysztar',0xA,0
+
+
+_step db '$',0
 
 _logo db 'flat assembler  version ',VERSION_STRING,0
 _usage db 0xA

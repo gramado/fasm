@@ -143,6 +143,12 @@ lseek:
 	stc
 	ret
 
+
+
+;;=================================
+;; Display String !!
+;;
+
 display_string:
 	lodsb
 	or	al,al
@@ -188,6 +194,8 @@ display_number:
 	jnz	display_loop
 	pop	ebx
 	ret
+
+
 
 display_user_messages:
 	mov	[displayed_count],0
